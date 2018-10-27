@@ -33,6 +33,18 @@ app.get('/app/include/js/index.js', function (req, res) {
         res.send(html);
     });
 });
+//bootstrap js
+app.get('/app/include/lib/bootstrap/js/bootstrap.js', function (req, res) {
+    fs.readFile('./app/include/lib/bootstrap/js/bootstrap.js', 'utf8', function (err, html) {
+        res.send(html);
+    });
+});
+//bootstrap css
+app.get('/app/include/lib/bootstrap/css/bootstrap.css', function (req, res) {
+    fs.readFile('./app/include/lib/bootstrap/css/bootstrap.css', 'utf8', function (err, html) {
+        res.send(html);
+    });
+});
 
 
 /**
