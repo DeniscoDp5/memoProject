@@ -155,7 +155,10 @@ app.put('/memo/:memoId', function (req, res) {
                 console.log(query);
                 res.send('cannot update memo with id' + req.param.memoId);
             } else {
-                res.send('Updatet')
+                res.send({
+                    success: true,
+                    data: [body]
+                })
             }
         })
 });
