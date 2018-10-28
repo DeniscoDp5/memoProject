@@ -2,15 +2,29 @@
 
 <head>
     <title>My Memo</title>
-    
+
     <!-- jQuery library-->
     <script src="app/include/lib/jquery-3.3.1.js"></script>
 </head>
+
 <body>
+    <div>
+        <h1>My Memo</h1>
+        <div id="addButton" onclick="onAddClick()">
+            +
+        </div>
+    </div>
+    <div class="container-fluid" id="main-content">
+    </div>
 </body>
+<!-- Exernal css-->
+<link rel="stylesheet" type="text/css" href="app/include/css/css.css">
 <!-- External js-->
 <script src="app/include/js/index.js"></script>
 <!-- Bootstrap framework-->
 <link rel="stylesheet" type="text/css" href="app/include/lib/bootstrap/css/bootstrap.css">
 <script src="app/include/lib/bootstrap/js/bootstrap.js"></script>
+<script>
+    $(document).ready(startLoading());
+</script>
 </html>

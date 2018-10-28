@@ -21,6 +21,15 @@ app.get('/', function (req, res) {
     });
 });
 /**
+ * CSS Includes
+ */
+app.get('/app/include/css/css.css', function (req, res) {
+    fs.readFile('./app/include/css/css.css', 'utf8', function (err, html) {
+        res.send(html);
+    });
+});
+
+/**
  * Javascript Includes
  */
 app.get('/app/include/lib/jquery-3.3.1.js', function (req, res) {
@@ -74,10 +83,19 @@ app.post('/memo', function (req, res) {
         //req.body.date,
     ], function (pg_err, pg_res) {
         if (pg_err) {
-            res.send(pg_err.stack)
-            res.send('Error on InsertOperation');
+            res.send({
+                success: false,
+                error: pg_err.stack
+            })
         } else {
-            res.send(pg_res.rows);
+            res.send({
+                success: true,
+                data: [{ //TODO: better way for returning the inserted row
+                    title: req.body.title,
+                    description: req.body.description,
+                    expire_date: req.body.expire_date
+                }]
+            });
         }
     });
 });
@@ -100,7 +118,7 @@ app.get('/memo/:memoId', function (req, res) {
 /**
  * delete a specific row
  */
-app.delete('/memo/:memoId', function (req, res) {
+app.delete('/memo/:memoId', function (req, res) { //TODO:verify correctnessof delet rest api
     pgClient.query('delete from memo where id = $1', [
         req.params.memoId
     ], function (pg_err, pg_res) {
@@ -123,7 +141,7 @@ app.put('/memo/:memoId', function (req, res) {
     for (var pars in body) {
         params.push(body[pars]);
         var tmp_Q = "set " + pars + " = $" + i + ',';
-        
+
         query += tmp_Q
         i++;
     }
