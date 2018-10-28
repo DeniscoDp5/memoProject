@@ -134,13 +134,13 @@ app.delete('/memo/:memoId', function (req, res) { //TODO:verify correctnessof de
  */
 app.put('/memo/:memoId', function (req, res) {
     var body = req.body;
-    var query = "Update memo "
+    var query = "Update memo set "
     var params = [];
     var i = 1;
 
     for (var pars in body) {
         params.push(body[pars]);
-        var tmp_Q = "set " + pars + " = $" + i + ',';
+        var tmp_Q = pars + " = $" + i + ',';
 
         query += tmp_Q
         i++;
@@ -152,6 +152,7 @@ app.put('/memo/:memoId', function (req, res) {
         function (pg_err, pg_res) {
             if (pg_err) {
                 console.log(pg_err.stack);
+                console.log(query);
                 res.send('cannot update memo with id' + req.param.memoId);
             } else {
                 res.send('Updatet')
